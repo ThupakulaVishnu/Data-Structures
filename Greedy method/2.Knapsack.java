@@ -1,7 +1,7 @@
 //Write a program to implement knapsack problem using greedy method.
 
 import java.util.*;
-class sample {
+class Main {
     public static void main(String[] args) {
         Scanner i=new Scanner(System.in);
         System.out.print("Enter capacity of knapsack :");
