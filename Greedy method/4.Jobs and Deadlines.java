@@ -2,7 +2,7 @@
 //total profit. Each job takes one unit of time to complete, and a job cannot be scheduled if its deadline has passed.
 
 import java.util.*;
-class sample {
+class Main {
     public static void main(String[] args) {
         Scanner i=new Scanner(System.in);
         System.out.print("Enter no.of jobs :");
