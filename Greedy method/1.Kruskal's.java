@@ -9,7 +9,7 @@ class Edges{
         weight=c;
     }
 }
-public class sample {
+class Main {
     public static void main(String[] args) {
         Scanner i=new Scanner(System.in);
         int vertices=i.nextInt();
