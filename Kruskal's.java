@@ -1,3 +1,6 @@
+
+
+
 import java.util.*;
 class Edges{
     public int src,des,weight;
