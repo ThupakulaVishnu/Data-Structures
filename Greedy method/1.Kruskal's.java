@@ -1,3 +1,5 @@
+//Write a program to find minimum cost spanning tree using kruskal's Algorithum.
+
 import java.util.*;
 class Edges{
     public int src,des,weight;
