@@ -1,3 +1,12 @@
+//Implement the Binary Search algorithm using the Divde and Conquer approach. Write a function binary_search(arr,target) that takes a sorted
+// array of integers and a target value, and returns the index of the target if found, or -1 if not found.
+
+// Sample Input 
+// 1 2 3 4 5 6 7 8 9 10
+// Sample Output
+// 7
+
+
 import java.util.*;
 class Main {
     public static void main(String[] args) {
