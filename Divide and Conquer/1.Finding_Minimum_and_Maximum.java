@@ -1,4 +1,5 @@
 // Implement a method that finds both the maximum and minimum values in an array using the divide and conquer approach.
+
 // Sample Input 
 // 3 7 2 8 1
 // Sample Output
