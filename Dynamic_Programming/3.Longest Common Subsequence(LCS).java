@@ -1,3 +1,11 @@
+// Write a program to implement Longest Common Subsequence(LCS) using Dynamic Programming.
+
+// Sample Input
+// ABCBDAB
+// BDCAB
+// Sample Output
+// 4
+
 import java.util.*;
 class Main {
     public static void main(String[] args) {
