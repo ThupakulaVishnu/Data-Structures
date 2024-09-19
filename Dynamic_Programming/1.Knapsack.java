@@ -1,3 +1,15 @@
+// Write a program to implement 0/1 Knapsack problem using Dynamic Programming method.
+
+// sample Input
+// 4
+// 2 3
+// 3 4
+// 4 5
+// 5 6
+// 5
+// sample output : 10
+
+
 import java.util.*;
 class Main {
     public static void main(String[] args) {
