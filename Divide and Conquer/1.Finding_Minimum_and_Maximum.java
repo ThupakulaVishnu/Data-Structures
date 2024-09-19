@@ -1,3 +1,10 @@
+// Implement a method that finds both the maximum and minimum values in an array using the divide and conquer approach.
+// Sample Input 
+// 3 7 2 8 1
+// Sample Output
+// Max - 8
+// Min - 1
+
 import java.util.*;
 class Main {
     public static void main(String[] args) {
