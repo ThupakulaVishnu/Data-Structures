@@ -1,3 +1,10 @@
+// Write a program to implement Fibonacci Sequence using Dynamic Programming.
+
+// Sample Input
+// 5   (Input an integer N denoting the element to print)
+// Sample Output
+// 5   (Print the FIbonacci number at index)
+
 import java.util.*;
 class Main {
     static int[] arr;
