@@ -1,3 +1,11 @@
+// Implement the Merge Sort algorithm using the Divide and Conquer approach. Write a function merge_sort(arr)
+// that takes an array of integers and returns a sorted array.
+
+// Sample Input
+// 7 4 9 1 6 3 8 2 5 10
+// Sample Output
+// 1 2 3 4 5 6 7 8 9 10
+
 import java.util.*;
 class Main {
     public static void main(String[] args) {
