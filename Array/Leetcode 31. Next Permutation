@@ -1,0 +1,54 @@
+Step 1: Start from the right end of the array.
+Step 2: Move left while the current number is smaller than or equal to the previous number.
+This helps find the first position where the increasing order breaks.
+Step 3: If you reach the beginning of the array, it means the array is in descending order.
+So reverse the entire array to make it the smallest permutation and stop.
+Step 4: If not, you found a position where the order breaks.
+Call this position a - 1.
+This is called the pivot element.
+Step 5: Again start from the right end of the array.
+Step 6: Move left to find the first number that is greater than the pivot element.
+Step 7: Swap the pivot element with this number.
+Step 8: Reverse the part of the array to the right of the pivot position.
+This makes the right part the smallest possible order.
+Step 9: The array now becomes the next permutation in lexicographical order.
+Total Time Complexity = O(n)
+Space Complexity = O(1)
+
+
+         ------------> Code <------------
+
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int a=nums.length-1;
+
+        while(a>=1 && nums[a-1]>=nums[a]){
+            a--;
+        }
+        if(a==0){
+            reverse(nums,0,nums.length-1);
+            return;
+        }
+
+        int b=nums.length-1;
+        while(a<=b && nums[a-1]>=nums[b]){
+            b--;
+        }
+        swap(nums,a-1,b);
+        reverse(nums,a,nums.length-1);
+    }
+    public void swap(int[] nums,int a,int b){
+        int temp=nums[a];
+        nums[a]=nums[b];
+        nums[b]=temp;
+    }
+    public void reverse(int[] nums,int st,int end){
+        while(st<end){
+            int temp=nums[st];
+            nums[st]=nums[end];
+            nums[end]=temp;
+            st++;
+            end--;
+        }
+    }
+}
