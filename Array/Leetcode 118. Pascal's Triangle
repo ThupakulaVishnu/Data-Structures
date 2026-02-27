@@ -1,0 +1,74 @@
+====== Leetcode 118. Pascal's Triangle =======
+
+Step 1: Create an empty list that will store all rows of Pascal’s Triangle.
+Step 2: If the number of rows requested is 0, return the empty list.
+Step 3: Create the first row containing only one element, which is 1.
+Step 4: Add this first row to the main list.
+Step 5: If the number of rows requested is 1, return the list because the triangle is complete.
+Step 6: Start a loop from the second row up to the required number of rows.
+Step 7: For each new row, create a new empty list.
+Step 8: Add 1 as the first element of the new row.
+Step 9: Get the previous row from the main list.
+Step 10: For the middle elements of the new row, add numbers by summing two adjacent numbers from the previous row.
+Step 11: Continue this process until all middle elements are calculated.
+Step 12: Add 1 as the last element of the new row.
+Step 13: Add the completed row to the main list.
+Step 14: Repeat this process until all rows are generated.
+Step 15: Return the main list containing all rows of Pascal’s Triangle.
+
+
+Let n = number of rows.
+Time Complexity:
+Row 1 has 1 element
+Row 2 has 2 elements
+Row 3 has 3 elements
+Row 4 has 4 elements
+...
+Row n has n elements
+So total elements created are:
+1 + 2 + 3 + ... + n
+That means we are doing work for all these elements.
+If n = 5
+Work = 1 + 2 + 3 + 4 + 5 = 15
+If n = 100
+Work = 1 + 2 + 3 + ... + 100
+This grows roughly like n × n.
+So Time Complexity = O(n²)
+Now Space Complexity:
+We are storing all these numbers in memory.
+Total numbers stored are also:
+1 + 2 + 3 + ... + n
+That also grows like n × n.
+So Space Complexity = O(n²)
+In simple words:
+Because we create and store around n² numbers,
+both time and space are O(n²).
+
+
+
+      ----------------> code  <--------------
+class Solution {
+    List<List<Integer>> al=new ArrayList<>();
+    public List<List<Integer>> generate(int numRows) {
+        if(numRows==0)return al;
+
+        List<Integer> arr=new ArrayList<>();
+        arr.add(1);
+        al.add(arr);
+        if(numRows==1)return al;
+
+        for(int i=1;i<numRows;i++){
+            List<Integer> arr1=new ArrayList<>();
+            arr1.add(1);
+
+            List<Integer> prev=al.get(i-1);
+            for(int j=1;j<i;j++){
+                arr1.add(prev.get(j-1)+prev.get(j));
+            }
+            arr1.add(1);
+
+            al.add(arr1);
+        }
+        return al;
+    }
+}
