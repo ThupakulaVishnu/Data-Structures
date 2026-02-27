@@ -1,0 +1,45 @@
+====== Leetcode 75. Sort Colors (27th Feb)=======
+Algorithm for sorting 0s, 1s, and 2s (Dutch National Flag method):
+Step 1: Initialize three pointers:
+•	st at the beginning (index 0)
+•	mid at the beginning (index 0)
+•	end at the last index of the array
+Step 2: Repeat the following steps while mid is less than or equal to end.
+Step 3: If the value at mid is 1,
+move mid one step forward.
+Step 4: If the value at mid is 0,
+swap the value at st and mid using the swap method,
+then move both st and mid one step forward.
+Step 5: If the value at mid is 2,
+swap the value at mid and end using the swap method,
+then move end one step backward.
+Do not move mid in this case.
+Step 6: Continue this process until mid becomes greater than end.
+Step 7: When the loop ends, the array will be sorted with all 0s first, then 1s, then 2s. 
+Time Complexity = O(n) 
+Space Complexity = O(1)
+
+
+          ----------------> Code <--------------------
+class Solution {
+    public void sortColors(int[] nums) {
+        int st=0,mid=0,end=nums.length-1;
+        while(mid<=end){
+            if(nums[mid]==1){
+                mid++;
+            }else if(nums[mid]==0){
+                if(st!=mid)swap(nums,st,mid);
+                mid++;
+                st++;
+            }else{
+                swap(nums,mid,end);
+                end--;
+            }
+        }
+    }
+    public void swap(int[] nums,int a,int b){
+        int temp=nums[a];
+        nums[a]=nums[b];
+        nums[b]=temp;
+    }
+}
