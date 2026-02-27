@@ -1,0 +1,45 @@
+======> Leetcode 48. Rotate Image <=======
+Algorithm to rotate a square matrix by 90 degrees clockwise:
+Step 1: Get the size of the matrix (n × n).
+Step 2: Transpose the matrix.
+•	Traverse each row.
+•	For each row, traverse columns starting from the next diagonal element.
+•	Swap the element at position (i, j) with the element at position (j, i).
+•	This converts rows into columns.
+Step 3: After transposing, reverse each row.
+•	For every row, set two pointers:
+one at the beginning and one at the end.
+•	Swap the first and last elements.
+•	Move both pointers toward the center.
+•	Repeat until they meet.
+Step 4: After reversing all rows, the matrix is rotated 90 degrees clockwise. 
+Time Complexity = O(n²)
+Space Complexity = O(1)
+
+
+
+                   ----------------------> Code <---------------------------------
+class Solution {
+    public void rotate(int[][] matrix) {
+        int n=matrix.length;
+
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                int temp=matrix[i][j];
+                matrix[i][j]=matrix[j][i];
+                matrix[j][i]=temp;
+            }
+        }
+
+        for(int i=0;i<n;i++){
+            int a=0,b=n-1;
+            while(a<b){
+                int temp=matrix[i][a];
+                matrix[i][a]=matrix[i][b];
+                matrix[i][b]=temp;
+                a++;
+                b--;
+            }
+        }
+    }
+}
