@@ -1,0 +1,36 @@
+====== Leetcode 121. Best Time to Buy and Sell Stock (27th Feb)=======
+Algorithm for finding maximum profit (Best Time to Buy and Sell Stock):
+Step 1: Initialize a variable buy with the first price in the array.
+This represents the minimum price seen so far (best day to buy).
+Step 2: Initialize a variable profit to 0.
+This will store the maximum profit found so far.
+Step 3: Traverse the array starting from index 1.
+Step 4: For each price:
+•	If the current price is smaller than buy, update buy to this price.
+(This means we found a better day to buy.)
+Step 5: Otherwise, calculate the profit if we sell today:
+current price minus buy.
+Step 6: Compare this profit with the existing profit.
+If it is greater, update profit.
+Step 7: Continue this process until all prices are checked.
+Step 8: Return profit.
+This will be the maximum profit possible from one buy and one sell.
+ Time Complexity = O(n) 
+Space Complexity = O(1)
+
+
+                --------------> Code <----------------
+class Solution {
+    public int maxProfit(int[] prices) {
+        int proft=0;
+        int buy=prices[0];
+        for(int i=1;i<prices.length;i++){
+            if(prices[i]<buy){
+                buy=prices[i];
+                continue;
+            }
+            proft=Math.max(proft,prices[i]-buy);
+        }
+        return proft;
+    }
+}
