@@ -1,0 +1,41 @@
+======== Leetcode 73. Set Matrix Zeroes ======
+Step 1: Find the number of rows and columns in the matrix.
+Step 2: Create one boolean array to track which rows should become zero.
+Step 3: Create another boolean array to track which columns should become zero.
+Step 4: Traverse the entire matrix using two loops (row by row, column by column).
+Step 5: Whenever you find a cell that contains 0, mark that row index as true in the row array and mark that column index as true in the column array.
+Step 6: After checking the whole matrix, you now know exactly which rows and columns must be set to zero.
+Step 7: Traverse the matrix again.
+Step 8: For each cell, check if its row is marked true or its column is marked true.
+Step 9: If either the row or column is marked, set that cell value to 0.
+Step 10: After completing this second traversal, the matrix will have all required rows and columns converted to zero.
+
+
+
+             ---------------> Code <-----------------
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int row=matrix.length;
+        int col=matrix[0].length;
+
+        boolean[] r=new boolean[row];
+        boolean[] c=new boolean[col];
+
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(matrix[i][j]==0){
+                    r[i]=true;
+                    c[j]=true;
+                }
+            }
+        }
+
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(r[i] || c[j]){
+                    matrix[i][j]=0;
+                }
+            }
+        }
+    }
+}
