@@ -1,0 +1,32 @@
+====== Leetcode 53. Maximum Subarray (27th Feb)=======
+Algorithm for finding maximum subarray sum (Kadane’s Algorithm):
+Step 1: Initialize a variable cm (current maximum) to 0.
+Step 2: Initialize a variable gm (global maximum) to the smallest possible integer value.
+Step 3: Traverse each element in the array from left to right.
+Step 4: For each element, decide:
+•	Either add the current element to the previous sum (cm + current element)
+•	Or start a new subarray from the current element
+Take the maximum of these two values and store it in cm.
+Step 5: Compare cm with gm.
+If cm is greater, update gm with cm.
+Step 6: Continue this process for all elements in the array.
+Step 7: After the loop ends, return gm.
+This will be the maximum sum of any continuous subarray.
+ 
+Time Complexity = O(n) 
+Space Complexity = O(1)
+
+
+       ------------------> code <----------------
+
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int cm=0;
+        int gm=Integer.MIN_VALUE;
+        for(int n:nums){
+            cm=Math.max(cm+n,n);
+            gm=Math.max(cm,gm);
+        }
+        return gm;
+    }
+}
