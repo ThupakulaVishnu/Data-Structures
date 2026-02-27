@@ -1,0 +1,49 @@
+Step-by-step algorithm for merging intervals:
+Step 1: Sort all intervals based on their start times in ascending order.
+Step 2: Initialize a list ans to store merged intervals.
+Step 3: Set prev to the first interval in the sorted array.
+Step 4: Traverse the rest of the intervals one by one (from the second interval onwards).
+•	Sub-step 4a: Let curr be the current interval.
+•	Sub-step 4b: Check if curr overlaps with prev (i.e., if curr[0] <= prev[1]).
+o	If yes (overlap exists):
+	Merge the intervals by updating prev[1] = max(prev[1], curr[1]).
+o	If no (no overlap):
+	Add prev to the result list ans.
+	Set prev = curr.
+Step 5: After the loop ends, add the last prev interval to ans.
+Step 6: Convert the list ans to a 2D array and return it.
+Time Complexity:
+•	Sorting intervals → O(n log n)
+•	Merging intervals → O(n)
+Total = O(n log n)
+Space Complexity:
+•	Storing merged intervals in a list → O(n)
+•	Temporary variables → O(1)
+Total = O(n)
+
+
+
+    -----------------> Code <---------------
+
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, (a,b)-> Integer.compare(a[0],b[0]));
+
+        List<int[]> ans=new ArrayList<>();
+        int[] prev=intervals[0];
+
+        int n=intervals.length;
+        for(int i=1;i<n;i++){
+            int[] curr=intervals[i];
+            if(curr[0]<=prev[1]){
+                prev[1]=Math.max(prev[1],curr[1]);
+            }else{
+                ans.add(prev);
+                prev=curr;
+            }
+        }
+
+        ans.add(prev);
+        return ans.toArray(new int[ans.size()][]);
+    }
+}
