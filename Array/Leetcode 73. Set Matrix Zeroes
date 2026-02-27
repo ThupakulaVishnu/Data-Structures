@@ -10,6 +10,10 @@ Step 8: For each cell, check if its row is marked true or its column is marked t
 Step 9: If either the row or column is marked, set that cell value to 0.
 Step 10: After completing this second traversal, the matrix will have all required rows and columns converted to zero.
 
+Time Complexity: O(m × n)
+Space Complexity: O(m + n)
+
+
 
 
              ---------------> Code <-----------------
