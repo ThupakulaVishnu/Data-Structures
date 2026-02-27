@@ -1,0 +1,40 @@
+====== Leetcode 152. Maximum Product Subarray (27th Feb)=======
+Algorithm for finding maximum product subarray:
+Step 1: Initialize two variables:
+•	lm (left product) = 1
+•	rm (right product) = 1
+Step 2: Initialize maxv to the smallest possible integer value.
+Step 3: Get the length of the array.
+Step 4: Traverse the array from left to right using a loop.
+Step 5: At each step:
+•	If lm becomes 0, reset it to 1.
+•	If rm becomes 0, reset it to 1.
+(This is done because multiplying by 0 will make the product 0, so we restart the product.)
+Step 6: Multiply lm with the current element from the left side.
+Step 7: Multiply rm with the current element from the right side (start from the end and move backward).
+Step 8: Compare lm and rm with maxv.
+Update maxv with the maximum value among them.
+Step 9: Continue this process until all elements are processed.
+Step 10: Return maxv.
+This gives the maximum product of any continuous subarray.
+ Time Complexity = O(n)
+Space Complexity = O(1)
+
+
+                ------------> Code <----------------------
+class Solution {
+    public int maxProduct(int[] nums) {
+        int lm=1,rm=1;
+        int n=nums.length;
+        int maxv=Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            lm= lm==0 ? 1 :lm;
+            rm= rm==0 ? 1 :rm;
+
+            lm=lm*nums[i];
+            rm=rm*nums[n-1-i];
+            maxv=Math.max(maxv,Math.max(lm,rm));
+        }
+        return maxv;
+    }
+}
