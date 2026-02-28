@@ -1,0 +1,49 @@
+====== Leetcode 435. Non-overlapping Intervals =======
+Step-by-step algorithm for erasing minimum overlapping intervals:
+Step 1: If the number of intervals is 0, return 0.
+Step 2: Sort all intervals based on their ending time in ascending order.
+Step 3: Initialize a variable cot to 0.
+This will count how many intervals need to be removed.
+Step 4: Store the ending time of the first interval in a variable called end.
+Step 5: Traverse the intervals from the second interval to the last.
+•	Sub-step 5a: Check if the current interval’s start time is less than end.
+o	If yes (overlap exists):
+	Increase cot by 1.
+	Do not update end because we keep the interval with the smaller end time (already chosen).
+o	If no (no overlap):
+	Update end to the ending time of the current interval.
+	This means we select this interval.
+Step 6: After checking all intervals, return cot.
+
+Time Complexity:
+•	Sorting takes O(n log n)
+•	Single traversal takes O(n)
+Total Time Complexity = O(n log n)
+
+Space Complexity:
+•	Only a few variables are used.
+Space Complexity = O(1)
+
+
+
+
+   -----------------> Code <-------------
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+        if(intervals.length==0)return 0;
+
+        Arrays.sort(intervals, (a,b)-> Integer.compare(a[1],b[1]));
+        int cot=0;
+        int n=intervals.length;
+        int end=intervals[0][1];
+        
+        for(int i=1;i<n;i++){
+            if(intervals[i][0]<end){
+                cot++;
+            }else{
+                end=intervals[i][1];
+            }
+        }
+        return cot;
+    }
+}
