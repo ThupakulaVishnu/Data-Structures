@@ -1,0 +1,59 @@
+====== Gfg  Subset Sum Problem =======
+
+Step-by-step algorithm for checking if a subset with given sum exists:
+
+Step 1: Create a boolean array `ar` of size `sum + 1`.
+This array will store whether a particular sum is possible or not.
+
+Step 2: Set `ar[0] = true`.
+This means a sum of 0 is always possible (by choosing no elements).
+
+Step 3: Traverse each element in the given array.
+
+Step 4: For each element, update the boolean array from right to left (from `sum` down to the current element value).
+
+* Sub-step 4a: For each value `j` from `sum` down to `arr[i]`,
+  check if the sum `j` can be formed.
+
+* Sub-step 4b: Update
+  `ar[j] = ar[j] OR ar[j - arr[i]]`
+
+  This means:
+
+  * If `ar[j]` was already true, keep it true.
+  * Otherwise, check if `j - arr[i]` was previously possible.
+    If yes, then `j` is also possible by adding the current element.
+
+Step 5: Repeat this process for all elements in the array.
+
+Step 6: After processing all elements, check `ar[sum]`.
+
+Step 7: If `ar[sum]` is true, a subset with the given sum exists.
+Otherwise, it does not exist.
+
+Time Complexity:
+Outer loop runs n times.
+Inner loop runs up to sum times.
+Time Complexity = O(n × sum)
+
+Space Complexity:
+Boolean array of size `sum + 1` is used.
+Space Complexity = O(sum)
+
+
+     ----------------> Code <-------------------
+
+class Solution {
+
+    static Boolean isSubsetSum(int arr[], int sum) {
+        boolean[] ar=new boolean[sum+1];
+        ar[0]=true;
+        
+        for(int i=0;i<arr.length;i++){
+            for(int j=sum;j>=arr[i];j--){
+                ar[j]=ar[j] || ar[j-arr[i]];
+            }
+        }
+        return ar[sum];
+    }
+}
