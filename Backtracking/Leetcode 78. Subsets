@@ -1,0 +1,55 @@
+====== Leetcode 78. Subsets =======
+
+Step-by-step algorithm to generate all subsets of an array:
+
+Step 1: Initialize an empty list al to store all subsets.
+
+Step 2: Call a recursive function find starting from index 0 with an empty temporary list arl.
+
+Step 3: In the recursive function find:
+
+Sub-step 3a: Add a copy of the current list arl to al.
+(This stores the current subset.)
+
+Sub-step 3b: Loop over the elements from st (current start index) to n-1:
+
+Sub-sub-step 3b-i: Add the current element nums[i] to arl.
+
+Sub-sub-step 3b-ii: Recursively call find with the next index i + 1.
+(This explores all subsets including the current element.)
+
+Sub-sub-step 3b-iii: Remove the last element from arl.
+(This backtracks to explore subsets without the current element.)
+
+Step 4: Continue the recursion until all elements are considered.
+
+Step 5: Return al containing all possible subsets.
+
+Time Complexity:
+There are 2^n possible subsets for n elements.
+Each subset can take up to O(n) time to copy.
+Time Complexity = O(n × 2^n)
+
+Space Complexity:
+Recursive call stack can go up to n levels.
+Space Complexity = O(n) (excluding output list)
+
+
+          ---------------> Code <-------------------
+
+class Solution {
+    List<List<Integer>> al=new ArrayList<>();
+    public List<List<Integer>> subsets(int[] nums) {
+
+        find(nums,0,nums.length,new ArrayList<>());
+        return al;
+    }
+    public void find(int[] nums,int st,int n,List<Integer> arl){
+        al.add(new ArrayList<>(arl));
+        for(int i=st;i<n;i++){
+            arl.add(nums[i]);
+            find(nums,i+1,n,arl);
+            arl.remove(arl.size()-1);
+        }
+    }
+}
