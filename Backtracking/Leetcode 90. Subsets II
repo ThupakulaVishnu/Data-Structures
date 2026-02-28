@@ -1,0 +1,67 @@
+====== Leetcode 90. Subsets II =======
+
+Step-by-step algorithm to generate all subsets of an array with duplicates handled:
+
+Step 1: Sort the input array nums.
+
+Sorting ensures that duplicate numbers are next to each other, which helps in skipping them later.
+
+Step 2: Initialize an empty list al to store all subsets.
+
+Step 3: Call a recursive function find starting from index 0 with an empty temporary list arl.
+
+Step 4: In the recursive function find:
+
+Sub-step 4a: Add a copy of the current list arl to al.
+(This stores the current subset.)
+
+Sub-step 4b: Loop over the elements from st (current start index) to n-1:
+
+Sub-sub-step 4b-i: Skip duplicates:
+If i > st and nums[i] == nums[i-1], continue to the next iteration.
+(This avoids generating the same subset multiple times.)
+
+Sub-sub-step 4b-ii: Add the current element nums[i] to arl.
+
+Sub-sub-step 4b-iii: Recursively call find with the next index i + 1.
+(This explores all subsets including the current element.)
+
+Sub-sub-step 4b-iv: Remove the last element from arl.
+(This backtracks to explore subsets without the current element.)
+
+Step 5: Continue the recursion until all elements are considered.
+
+Step 6: Return al containing all unique subsets.
+
+Time Complexity:
+There are up to 2^n possible subsets.
+Each subset can take O(n) time to copy.
+Time Complexity = O(n × 2^n)
+
+Space Complexity:
+Recursive call stack can go up to n levels.
+Space Complexity = O(n) (excluding the output list)
+
+
+        -----------------> Code <-------------------
+
+class Solution {
+    List<List<Integer>> al=new ArrayList<>();
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        find(nums,0,nums.length,new ArrayList<>());
+        return al;
+    }
+    public void find(int[] nums,int st,int n,List<Integer> arl){
+        al.add(new ArrayList<>(arl));
+        
+        for(int i=st;i<n;i++){
+
+            if(i>st && nums[i]==nums[i-1])continue;
+            
+            arl.add(nums[i]);
+            find(nums,i+1,n,arl);
+            arl.remove(arl.size()-1);
+        }
+    }
+}
