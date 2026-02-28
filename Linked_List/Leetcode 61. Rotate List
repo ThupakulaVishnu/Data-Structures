@@ -1,0 +1,54 @@
+Step-by-step algorithm to rotate a linked list to the right by k positions:
+Step 1: If the list is empty, has only one node, or k is 0, return the head as it is.
+Step 2: Initialize a variable leng to 1.
+Step 3: Set a pointer tail to the head.
+Step 4: Traverse the list until you reach the last node.
+•	Sub-step 4a: Move tail to the next node.
+•	Sub-step 4b: Increase leng by 1 for each move.
+Step 5: After reaching the last node, connect it to the head.
+•	This makes the list circular.
+Step 6: Calculate effective rotations using k % leng.
+•	This avoids unnecessary full rotations.
+Step 7: Calculate the number of steps to move from the head to reach the new tail:
+•	frot_moves = leng - (k % leng) - 1
+Step 8: Move the head pointer forward frot_moves times.
+•	After this loop, the current head will be the new tail.
+Step 9: Store head.next in a variable called newhead.
+•	This will be the new head of the rotated list.
+Step 10: Break the circular link by setting head.next = null.
+Step 11: Return newhead.
+Time Complexity:
+The list is traversed once to find length and once to find the new head.
+Time Complexity = O(n)
+Space Complexity:
+Only a few pointers and variables are used.
+Space Complexity = O(1)
+
+
+
+    ------------> Code <---------------
+
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head==null || head.next==null || k==0)return head;
+
+        int leng=1;
+        ListNode tail=head;
+
+        while(tail.next!=null){
+            tail=tail.next;
+            leng++;
+        }
+        tail.next=head;
+
+        int frot_moves=leng-(k%leng)-1;
+
+        for(int i=0;i<frot_moves;i++){
+            head=head.next;
+        }
+        ListNode newhead=head.next;
+        head.next=null;
+
+        return newhead;
+    }
+}
