@@ -1,0 +1,50 @@
+====== Leetcode 206. Reverse Linked List =======
+Step-by-step algorithm to reverse a linked list:
+
+Step 1: Initialize a pointer pre to null.
+This will store the previous node.
+
+Step 2: Initialize a pointer head to the first node of the list.
+(This is the current node.)
+
+Step 3: Repeat the following steps while head is not null:
+
+Sub-step 3a: Store the next node of head in a temporary pointer nxt.
+(This prevents losing the rest of the list.)
+
+Sub-step 3b: Change the next pointer of head to point to pre.
+(This reverses the link.)
+
+Sub-step 3c: Move pre to the current node (head).
+(Now this node becomes the previous node.)
+
+Sub-step 3d: Move head to nxt.
+(Move to the next node in the original list.)
+
+Step 4: When the loop ends, pre will point to the new head of the reversed list.
+
+Step 5: Return pre.
+
+Time Complexity:
+Each node is visited once.
+Time Complexity = O(n)
+
+Space Complexity:
+Only a few pointers are used.
+Space Complexity = O(1)
+
+
+         ---------------> Code <----------------
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode pre=null;
+        ListNode nxt=head;
+        while(head!=null){
+            nxt=head.next;
+            head.next=pre;
+            pre=head;
+            head=nxt;
+        }
+        return pre;
+    }
+}
