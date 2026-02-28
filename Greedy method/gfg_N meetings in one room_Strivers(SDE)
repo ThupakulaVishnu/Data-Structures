@@ -1,0 +1,58 @@
+Link --> https://www.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1
+
+====== Gfg  N meetings in one room (28th Feb)=======
+Step-by-step algorithm to find the maximum number of meetings that can be held in a room:
+Step 1: Create a 2D array arr where each element stores a meeting’s start and end time.
+•	Sub-step 1a: For each meeting, store start time in arr[i][0].
+•	Sub-step 1b: Store end time in arr[i][1].
+Step 2: Sort the meetings in ascending order based on their end times.
+•	This ensures that we always consider the earliest finishing meeting first.
+Step 3: Initialize count = 1.
+•	The first meeting can always be scheduled.
+Step 4: Initialize ed to the end time of the first meeting.
+•	This keeps track of the last meeting’s end time.
+Step 5: Traverse the rest of the meetings from the second meeting onward:
+•	Sub-step 5a: If the start time of the current meeting is greater than ed,
+o	Increment count by 1.
+o	Update ed to the end time of the current meeting.
+(This means we can schedule this meeting without overlap.)
+•	Sub-step 5b: If the start time is less than or equal to ed, skip this meeting.
+(It overlaps with the last selected meeting.)
+Step 6: After checking all meetings, return count.
+Time Complexity:
+•	Sorting meetings → O(n log n)
+•	Traversing meetings → O(n)
+Total = O(n log n)
+Space Complexity:
+•	Storing meetings in a 2D array → O(n)
+•	Other variables → O(1)
+Total = O(n)
+
+
+
+           -----------> Code <-------------
+
+class Solution {
+    // Function to find the maximum number of meetings that can
+    // be performed in a meeting room.
+    public int maxMeetings(int start[], int end[]) {
+        int[][] arr=new int[start.length][2];
+        
+        for(int i=0;i<start.length;i++){
+            arr[i][0]=start[i];
+            arr[i][1]=end[i];
+        }
+        
+        Arrays.sort(arr,(a,b)->Integer.compare(a[1],b[1]));
+        
+        int count=1;
+        int ed=arr[0][1];
+        for(int i=1;i<start.length;i++){
+            if(arr[i][0]>ed){
+                count++;
+                ed=arr[i][1];
+            }
+        }
+        return count;
+    }
+}
