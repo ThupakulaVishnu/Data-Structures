@@ -1,62 +1,60 @@
 ====== gfg Find nth root of m =======
 
+Link --> https://www.geeksforgeeks.org/problems/find-nth-root-of-m5843/1
+
+
 Step-by-step algorithm to find the nth root of a number m using Binary Search:
 
-Step 1: If m is less than or equal to 0, return m directly.
+Step 1: Initialize two variables:
 
-Step 2: Initialize two variables:
+* low = 0
+* high = m
 
-low = 1
+Step 2: Repeat the following steps while low is less than or equal to high.
 
-high = m
+Step 3: Find the middle value:
 
-Step 3: Start a loop while low is less than or equal to high.
+* mid = low + (high - low) / 2
 
-Step 4: Find the middle value:
+Step 4: Compute mid raised to the power n.
 
-mid = low + (high - low) / 2
+* Initialize power = 1
+* Multiply power by mid, n times
+* If at any point power becomes greater than m, stop early
 
-Step 5: Calculate mid raised to the power n.
+Step 5: Compare the calculated power with m.
 
-Sub-step 5a: Initialize power = 1
+* Sub-step 5a: If power is equal to m,
+  return mid because mid is the nth root.
 
-Sub-step 5b: Multiply power by mid, n times
+* Sub-step 5b: If power is greater than m,
+  move the search space to the left side by setting
+  high = mid - 1
 
-Sub-step 5c: If at any point power becomes greater than m, stop early
+* Sub-step 5c: If power is less than m,
+  move the search space to the right side by setting
+  low = mid + 1
 
-Step 6: Compare power with m.
+Step 6: Continue this process until low becomes greater than high.
 
-Sub-step 6a: If power is equal to m, return mid
-(We found the exact nth root)
-
-Sub-step 6b: If power is greater than m,
-set high = mid - 1
-(Search in the left half)
-
-Sub-step 6c: If power is less than m,
-set low = mid + 1
-(Search in the right half)
-
-Step 7: Repeat the process until low becomes greater than high.
-
-Step 8: If no exact nth root is found, return -1.
+Step 7: If no value satisfies mid^n = m, return -1.
 
 Time Complexity:
-Binary search runs in O(log m)
-For each mid, we compute power in O(n)
-Total Time Complexity = O(n × log m)
+Binary search runs in log m steps.
+Inside each step, power calculation runs n times.
+Time Complexity = O(n × log m)
 
 Space Complexity:
 Only a few variables are used.
 Space Complexity = O(1)
 
 
+
             ------------------> Code <--------------------
 
 class Solution {
     public int nthRoot(int n, int m) {
-        if(m<=0)return m;
-        int low=1, high=m;
+        int low=0, high=m;
         while(low<=high){
             int mid=low+(high-low)/2;
             long power=1;
