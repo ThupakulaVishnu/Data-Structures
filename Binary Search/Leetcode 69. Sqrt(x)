@@ -1,0 +1,65 @@
+====== Leetcode 69. Sqrt(x) =======
+
+Step-by-step algorithm to find the square root of a number using Binary Search:
+
+Step 1: Initialize two variables:
+
+l = 0
+
+h = x
+
+Step 2: Repeat the following steps while l is less than or equal to h.
+
+Step 3: Calculate the middle value:
+
+mid = l + (h - l) / 2
+
+Step 4: Compute mid × mid (use long type to avoid overflow).
+
+Step 5: Compare mid × mid with x.
+
+Sub-step 5a: If mid × mid is greater than x,
+move to the left half by setting
+h = mid - 1
+
+Sub-step 5b: If mid × mid is less than x,
+move to the right half by setting
+l = mid + 1
+
+Sub-step 5c: If mid × mid is equal to x,
+return mid (exact square root found).
+
+Step 6: Continue this process until l becomes greater than h.
+
+Step 7: When the loop ends, return h.
+
+h will store the integer part of the square root (floor value).
+
+Time Complexity:
+Binary search reduces the search space by half each time.
+Time Complexity = O(log x)
+
+Space Complexity:
+Only a few variables are used.
+Space Complexity = O(1)
+
+
+          ----------------> Code <-------------------
+
+class Solution {
+    public int mySqrt(int x) {
+        int l=0, h=x;
+
+        while(l<=h){
+            int mid=l+(h-l)/2;
+            if((long)mid*mid>x){
+                h=mid-1;
+            }else if((long)mid*mid<x){
+                l=mid+1;
+            }else{
+                return Math.round(mid);
+            }
+        }
+        return h;
+    }
+}
