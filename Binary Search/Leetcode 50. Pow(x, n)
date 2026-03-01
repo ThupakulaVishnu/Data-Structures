@@ -1,0 +1,62 @@
+======== Leetcode 50. Pow(x, n) ======
+
+Step-by-step algorithm to calculate x raised to the power n efficiently (using binary exponentiation):
+
+Step 1: Convert n to a long variable N to handle negative values safely.
+
+Step 2: Check if N is negative:
+
+If yes, invert x → x = 1 / x
+
+Make N positive → N = -N
+
+Step 3: Initialize two variables:
+
+prod = 1 → will store the final result
+
+currp = x → will store the current power of x
+
+Step 4: Repeat the following steps while N > 0:
+
+Sub-step 4a: If N is odd (N % 2 == 1), multiply prod by currp.
+
+Sub-step 4b: Square currp → currp = currp * currp.
+
+Sub-step 4c: Divide N by 2 → N = N / 2 (integer division).
+
+Step 5: Continue this process until N becomes 0.
+
+Step 6: Return prod as the final result (x raised to n).
+
+Time Complexity:
+
+Each step halves N → O(log n)
+Time Complexity = O(log n)
+
+Space Complexity:
+
+Only a few variables are used → O(1)
+
+
+        ----------------> Code <--------------
+
+class Solution {
+    public double myPow(double x, int n) {
+        long N=n;
+        if(N<0){
+            x=1/x;
+            N=-N;
+        }
+
+        double prod=1, currp=x;
+        while(N>0){
+            if(N%2==1){
+                prod*=currp;
+            }
+            currp*=currp;
+            N=N/2;
+        }
+
+        return prod;
+    }
+}
