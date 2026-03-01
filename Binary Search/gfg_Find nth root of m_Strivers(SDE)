@@ -1,0 +1,80 @@
+====== gfg Find nth root of m =======
+
+Step-by-step algorithm to find the nth root of a number m using Binary Search:
+
+Step 1: If m is less than or equal to 0, return m directly.
+
+Step 2: Initialize two variables:
+
+low = 1
+
+high = m
+
+Step 3: Start a loop while low is less than or equal to high.
+
+Step 4: Find the middle value:
+
+mid = low + (high - low) / 2
+
+Step 5: Calculate mid raised to the power n.
+
+Sub-step 5a: Initialize power = 1
+
+Sub-step 5b: Multiply power by mid, n times
+
+Sub-step 5c: If at any point power becomes greater than m, stop early
+
+Step 6: Compare power with m.
+
+Sub-step 6a: If power is equal to m, return mid
+(We found the exact nth root)
+
+Sub-step 6b: If power is greater than m,
+set high = mid - 1
+(Search in the left half)
+
+Sub-step 6c: If power is less than m,
+set low = mid + 1
+(Search in the right half)
+
+Step 7: Repeat the process until low becomes greater than high.
+
+Step 8: If no exact nth root is found, return -1.
+
+Time Complexity:
+Binary search runs in O(log m)
+For each mid, we compute power in O(n)
+Total Time Complexity = O(n × log m)
+
+Space Complexity:
+Only a few variables are used.
+Space Complexity = O(1)
+
+
+            ------------------> Code <--------------------
+
+class Solution {
+    public int nthRoot(int n, int m) {
+        if(m<=0)return m;
+        int low=1, high=m;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            long power=1;
+            
+            for(int i=0;i<n;i++){
+                power*=mid;
+                if(power>m)break;
+            }
+            
+            if(power==m){
+                return mid;
+            }else if(power>m){
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
+            
+        }
+        return -1;
+    }
+}
