@@ -1,3 +1,6 @@
+Link -->  https://www.geeksforgeeks.org/problems/implement-stack-using-array/1
+
+
 Step-by-step algorithm for Stack implementation using array:
 
 ---
