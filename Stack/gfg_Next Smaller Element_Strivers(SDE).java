@@ -1,28 +1,43 @@
 Link --> https://www.geeksforgeeks.org/problems/immediate-smaller-element1142/1
 
 
-Step 1: Initialize an empty list al to store the next smaller elements.
+Step-by-step algorithm for Next Smaller Element in an array:
 
-Step 2: Initialize an empty stack st.
+Step 1: Initialize an empty ArrayList al to store the result.
 
-Step 3: Traverse the array arr from right to left (i = n-1 to 0):
+Step 2: Initialize an empty Stack st to keep track of potential next smaller elements.
 
-Sub-step 3a: If the stack is empty, add -1 to al.
+Step 3: Traverse the input array arr from right to left (i = n-1 to 0).
 
-Sub-step 3b: Otherwise, while the stack is not empty and the top of the stack is greater than or equal to arr[i], pop elements from the stack.
+Sub-step 3a: If the stack is empty,
 
-Sub-step 3c: After popping, if the stack is not empty, add the top of the stack to al (this is the next smaller element).
+Add -1 to al (no smaller element exists).
 
-Sub-step 3d: If the stack is empty after popping, add -1 to al.
+Sub-step 3b: If the stack is not empty,
 
-Sub-step 3e: Push arr[i] onto the stack.
+While the stack is not empty and the top element of the stack is greater than or equal to arr[i],
 
-Step 4: Reverse the list al because elements were added from right to left.
+Pop the element from the stack.
 
-Step 5: Return al.
+After this loop:
 
-Time Complexity: O(n) – Each element is pushed and popped at most once from the stack.
-Space Complexity: O(n) – For the stack and output list.
+If the stack is not empty, add the top element of the stack to al (this is the next smaller element).
+
+If the stack is empty, add -1 to al (no smaller element exists).
+
+Sub-step 3c: Push the current element arr[i] onto the stack.
+
+Step 4: After finishing the traversal, reverse the ArrayList al because elements were added from right to left.
+
+Step 5: Return al as the result containing the next smaller elements for each position.
+
+Time Complexity:
+Each element is pushed and popped from the stack at most once.
+Time Complexity = O(n)
+
+Space Complexity:
+Stack and result list store up to n elements.
+Space Complexity = O(n)
 
 
             -----------> Code <-----------
