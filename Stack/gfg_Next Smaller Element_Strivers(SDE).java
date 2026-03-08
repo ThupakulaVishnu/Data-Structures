@@ -1,71 +1,70 @@
 Link --> https://www.geeksforgeeks.org/problems/immediate-smaller-element1142/1
 
 
-Step-by-step algorithm for Next Smaller Element in an array:
+Step-by-step algorithm for finding Next Smaller Element (NSE) in an array:
 
-Step 1: Initialize an empty ArrayList al to store the result.
+Step 1: Initialize an empty ArrayList `al` of the same size as `arr`.
 
-Step 2: Initialize an empty Stack st to keep track of potential next smaller elements.
+* Fill all positions with -1 initially.
+  (This handles elements that do not have a smaller element to their right.)
 
-Step 3: Traverse the input array arr from right to left (i = n-1 to 0).
+Step 2: Initialize an empty Stack `st` to keep track of potential next smaller elements.
 
-Sub-step 3a: If the stack is empty,
+Step 3: Traverse the array from right to left (i = arr.length - 1 to 0).
 
-Add -1 to al (no smaller element exists).
+* Sub-step 3a: While the stack is not empty and the top of the stack (`st.peek()`) is greater than or equal to `arr[i]`:
 
-Sub-step 3b: If the stack is not empty,
+  * Pop elements from the stack.
+    (Remove elements that cannot be the next smaller for `arr[i]`.)
 
-While the stack is not empty and the top element of the stack is greater than or equal to arr[i],
+* Sub-step 3b: After the loop, check if the stack is not empty:
 
-Pop the element from the stack.
+  * If true:
 
-After this loop:
+    * The top of the stack (`st.peek()`) is the next smaller element for `arr[i]`.
+    * Update `al[i] = st.peek()`
 
-If the stack is not empty, add the top element of the stack to al (this is the next smaller element).
+* Sub-step 3c: Push `arr[i]` onto the stack.
+  (It may be the next smaller element for elements to the left.)
 
-If the stack is empty, add -1 to al (no smaller element exists).
+Step 4: After finishing the traversal, return the ArrayList `al`.
 
-Sub-step 3c: Push the current element arr[i] onto the stack.
+Logic:
 
-Step 4: After finishing the traversal, reverse the ArrayList al because elements were added from right to left.
-
-Step 5: Return al as the result containing the next smaller elements for each position.
+* Stack always contains potential "next smaller elements" in decreasing order from top to bottom.
+* We traverse from right to left to find the first smaller element on the right for each array element.
 
 Time Complexity:
-Each element is pushed and popped from the stack at most once.
+Each element is pushed and popped at most once.
 Time Complexity = O(n)
 
 Space Complexity:
-Stack and result list store up to n elements.
+Stack and result list can store up to n elements.
 Space Complexity = O(n)
+
 
 
             -----------> Code <-----------
 
-  class Solution {
+class Solution {
     static ArrayList<Integer> nextSmallerEle(int[] arr) {
-        int n=arr.length;
+        // code here
         ArrayList<Integer> al=new ArrayList<>();
-
-        
+        for(int i=0;i<arr.length;i++){
+            al.add(-1);
+        }
         Stack<Integer> st=new Stack<>();
-        for(int i=n-1;i>=0;i--){
-            if(st.isEmpty()){
-                al.add(-1);
-            }else{
-                while(!st.isEmpty() && st.peek()>=arr[i]){
-                    st.pop();
-                }
-                if(!st.isEmpty()){
-                    al.add(st.peek());
-                }else{
-                    al.add(-1);
-                }
+        
+        for(int i=arr.length-1;i>=0;i--){
+            while(!st.isEmpty() && st.peek()>=arr[i]){
+                st.pop();
+            }
+            
+            if(!st.isEmpty()){
+                al.set(i,st.peek());
             }
             st.push(arr[i]);
         }
-        
-        Collections.reverse(al);
         return al;
     }
 }
