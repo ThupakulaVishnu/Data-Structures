@@ -1,46 +1,48 @@
-Step-by-step algorithm to find the repeating and missing elements in an array:
+Step-by-step algorithm to **find the missing and repeating numbers in an array**:
 
-Step 1: Create an empty `ArrayList` `al` to store the result.
-Step 2: Create an empty `HashSet` `hm` to store unique elements from the array.
+Step 1: Initialize variables.
+ • Let `n` be the length of the array `arr`.
+ • Compute the **expected sum** of numbers from 1 to n:
+  o `sum = n * (n + 1) / 2`
+ • Compute the **expected sum of squares** of numbers from 1 to n:
+  o `sqsum = n * (n + 1) * (2n + 1) / 6`
 
-Step 3: Traverse each element `curr` in the array:
+Step 2: Compute the actual sum and sum of squares from the array.
+ • Initialize `asum = 0` and `asqsum = 0`.
+ • Loop through each element `nm` in `arr`:
+  o `asum += nm` → sum of elements in the array
+  o `asqsum += nm * nm` → sum of squares of elements in the array
 
-* Sub-step 3a: Try to add `curr` to the HashSet.
-* Sub-step 3b: If adding fails (element already exists),
+Step 3: Compute the differences between expected and actual sums.
+ • Let `val1 = sum - asum` → this equals `(missing - repeating)`
+ • Let `val2 = (sqsum - asqsum) / val1` → this equals `(missing + repeating)`
 
-  * It is the **repeating element**.
-  * Add it to `al`.
+Step 4: Solve for missing and repeating numbers.
+ • `missing = (val1 + val2) / 2`
+ • `repeating = missing - val1`
 
-Step 4: Traverse numbers from 1 to `n` (where `n` is the length of the array):
+Step 5: Store the results in a list.
+ • Create an ArrayList `al`.
+ • Add `repeating` first, then `missing`.
 
-* Sub-step 4a: Check if the number is **not present** in the HashSet.
-* Sub-step 4b: If not present, it is the **missing element**.
-
-  * Add it to `al`.
-  * Break the loop since the missing element is found.
-
-Step 5: Return the ArrayList `al` containing two elements:
-
-* First element = repeating number
-* Second element = missing number
+Step 6: Return the ArrayList.
+ • This list contains the **repeating number** and the **missing number** in order.
 
 Logic:
+ • Uses **mathematical equations**:
+  o Sum formula: 1 + 2 + ... + n = n*(n+1)/2
+  o Sum of squares formula: 1² + 2² + ... + n² = n*(n+1)*(2n+1)/6
+ • Let x = repeating, y = missing:
+  o sum - actual sum = y - x → val1
+  o sum of squares - actual sum of squares = y² - x² → val2 * val1
+ • Solve the two equations to get x and y.
 
-* HashSet keeps track of seen numbers.
-* Any duplicate will fail to be added → gives repeating number.
-* Any number from 1 to n not in the HashSet → gives missing number.
+**Time Complexity:**
+ • One pass through the array to compute sums → **O(n)**
 
-Time Complexity:
+**Space Complexity:**
+ • Only a few variables are used → **O(1)** (excluding output list)
 
-* Traversing array = O(n)
-* Traversing numbers 1 to n = O(n)
-* Total Time Complexity = **O(n)**
-
-Space Complexity:
-
-* HashSet may store up to n elements.
-* Result list stores 2 elements.
-  Space Complexity = **O(n)**
 
 
 
@@ -53,19 +55,30 @@ Space Complexity:
   class Solution {
     ArrayList<Integer> findTwoElement(int arr[]) {
         // code here
+        int n=arr.length;
+        
+        
+        long  sum=(long)n*(n+1)/2;
+        long sqsum=(long)n*(n+1)*(2*n+1)/6;
+        
+        long asum=0, asqsum=0;
+        
+        for(int nm:arr){
+            asum+=(long)nm;
+            asqsum+=(long)nm*nm;
+        }
+        
+        long val1=sum-asum;
+        long val2=(sqsum-asqsum)/val1;
+        
+        int miss=(int)(val1+val2)/2;
+        int extra=miss-(int)val1;
+        
         ArrayList<Integer> al=new ArrayList<>();
-        HashSet<Integer> hm=new HashSet<>();
-        for(int curr:arr){
-            if(!hm.add(curr)){
-                al.add(curr);
-            }
-        }
-        for(int i=1;i<=arr.length;i++){
-            if(!hm.contains(i)){
-                al.add(i);
-                break;
-            }
-        }
+        al.add(extra);
+        al.add(miss);
+        
         return al;
+        
     }
 }
