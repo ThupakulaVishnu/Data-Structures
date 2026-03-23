@@ -106,3 +106,4 @@ class pair{
         this.nod=nod;
     }
 }
+ 
