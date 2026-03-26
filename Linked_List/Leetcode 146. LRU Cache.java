@@ -1,49 +1,65 @@
-Step-by-step algorithm for implementing an LRU (Least Recently Used) Cache using a Doubly Linked List and Hash Map:
+Step-by-step algorithm for implementing an LRU (Least Recently Used) Cache using a Doubly Linked List and Array Map:
+
 Step 1: Initialize data structures in the constructor:
- • Create a Hash Map (or array map) to store key → Node mappings, which allows O(1) access to nodes.
- • Initialize a counter cout to track the current number of elements in the cache.
- • Set max_val to the capacity of the cache to know the maximum limit.
- • Create two dummy nodes called head and tail to simplify insertion and deletion operations.
- • Connect the dummy nodes so that head points to tail and tail points back to head, forming an empty Doubly Linked List.
+ • Create an array map[] to store key → Node mappings for O(1) access.
+ • Initialize a counter cc to track current number of elements in cache.
+ • Set max_val as the capacity of the cache.
+ • Create two dummy nodes head and tail.
+ • Connect them so that head points to tail and tail points back to head.
+  
 Step 2: Implement the get operation:
- • Check if the requested key exists in the Hash Map.
-  o If the key does not exist:
-   - Return -1 to indicate that the value is not present in the cache.
-  o If the key exists:
-   - Retrieve the corresponding node from the Hash Map.
-   - Move this node to the front of the Doubly Linked List because it has now been recently accessed.
-   - Return the value stored in that node.
+ • Check if map[key] == null
+  o If true: return -1
+  o Else:
+   - Get node curr = map[key]
+   - Remove it using del(curr)
+   - Add it to front using add(curr)
+   - Return curr.val
+  
 Step 3: Implement the put operation:
- • Check whether the key already exists in the Hash Map.
-  o If the key does not exist:
-   - Create a new node containing the given key and value.
-   - Insert the key → node mapping into the Hash Map.
-   - Add this node to the front of the Doubly Linked List since it is the most recently used element.
-   - If the cache size is still less than the capacity, increment the counter.
-   - If the cache is already full:
-    • Remove the least recently used node, which is the node just before the tail in the list.
-    • Also remove that node’s key from the Hash Map.
-  o If the key already exists:
-   - Retrieve the node from the Hash Map.
-   - Move this node to the front of the Doubly Linked List to mark it as recently used.
-   - Update the value stored in that node.
-Step 4: Handle node removal from the Doubly Linked List:
- • Adjust the previous node’s next pointer and the next node’s previous pointer so that they bypass the node being removed.
- • This effectively removes the node from the list without breaking the linked structure.
-Step 5: Handle node insertion at the front of the Doubly Linked List:
- • Insert the node immediately after the head dummy node.
- • Update the next and previous pointers of the node and its neighboring nodes to maintain the correct list structure.
+ • Check if map[key] == null
+  o If key does NOT exist:
+   - Create new node curr = new Node(key, value)
+   - Store it in map[key]
+   - If cc + 1 <= max_val: increment cc
+   - Else:
+    • Remove LRU node → tail.pre
+    • Remove mapping → map[tail.pre.key] = null
+    • Delete node using del(tail.pre)
+   - Add new node using add(curr)
+  o If key EXISTS:
+   - Get node curr = map[key]
+   - Remove it using del(curr)
+   - Update value curr.val = value
+   - Add it again using add(curr)
+
+Step 4: Handle node removal (del function):
+ • Update pointers:
+  - curr.pre.next = curr.next
+  - curr.next.pre = curr.pre
+    
+Step 5: Handle node insertion at front (add function):
+ • Insert after head:
+  - curr.pre = head
+  - curr.next = head.next
+  - head.next.pre = curr
+  - head.next = curr
+    
 Logic Explanation:
- • The Doubly Linked List maintains the usage order of cache elements.
- • The most recently used node is kept near the head, while the least recently used node is kept near the tail.
- • The Hash Map allows direct access to nodes using their keys in constant time.
- • Whenever a node is accessed or inserted, it is moved to the front of the list.
- • When the cache exceeds capacity, the node near the tail (least recently used) is removed.
+ • Doubly Linked List maintains usage order.
+ • Most recently used node is near head.
+ • Least recently used node is near tail.
+ • Array map[] provides O(1) access.
+ • On every get/put, node moves to front.
+ • When full, remove node before tail.
+    
 Time Complexity:
- • Both get and put operations run in O(1) time because the Hash Map provides constant-time lookup and the Doubly Linked List allows constant-time insertion and deletion.
+ • get() = O(1)
+ • put() = O(1)
+    
 Space Complexity:
- • The Hash Map and Doubly Linked List together store at most max_val elements.
- • Space Complexity = O(max_val)
+ • O(max_val)
+
 
 
 
@@ -54,67 +70,73 @@ Space Complexity:
 
   ==========> Code <=============
 
+
+
   class Node{
+    Node pre;
+    Node next;
     int key,val;
-    Node next=null,prev=null;
     Node(int key,int val){
         this.key=key;
         this.val=val;
     }
 }
+
 class LRUCache {
-    Node[] map;
-    int cout;
+    Node map[]; 
     int max_val;
-    Node head,tail;
+    int cc=0;
+    Node head=new Node(0,0);
+    Node tail=new Node(0,0);
     public LRUCache(int capacity) {
-        map=new Node[10000];
-        cout=0;
+        map=new Node[10001];
         max_val=capacity;
+
         head=new Node(0,0);
         tail=new Node(0,0);
 
         head.next=tail;
-        tail.prev=head;
+        tail.pre=head;
     }
     
     public int get(int key) {
         if(map[key]==null)return -1;
+
         Node curr=map[key];
-        int value=curr.val;
         del(curr);
-        addNode(curr);
-        return value;
+        int num=curr.val;
+        add(curr);
+        return num;
     }
     
     public void put(int key, int value) {
         if(map[key]==null){
-            Node curr= new Node(key,value);
-            map[key]= curr;
-            if(cout<max_val){
-                cout++;
+            Node curr=new Node(key,value);
+            map[key]=curr;
+            if(cc+1<=max_val){
+                cc++;
             }else{
-                map[tail.prev.key]=null;
-                del(tail.prev);
+                map[tail.pre.key]=null;
+                del(tail.pre);
             }
-            addNode(curr);
+            add(curr);
         }else{
             Node curr=map[key];
             del(curr);
-            addNode(curr);
             curr.val=value;
+            add(curr);
         }
     }
 
     public void del(Node curr){
-        curr.prev.next=curr.next;
-        curr.next.prev=curr.prev;
+        curr.pre.next=curr.next;
+        curr.next.pre=curr.pre;
     }
 
-    public void addNode(Node curr){
+    public void add(Node curr){
+        curr.pre=head;
+        head.next.pre=curr;
         curr.next=head.next;
-        head.next.prev=curr;
-        curr.prev=head;
         head.next=curr;
     }
 }
