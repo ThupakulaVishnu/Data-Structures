@@ -70,49 +70,66 @@ Space Complexity:
   class Solution {
     public boolean isCycle(int V, int[][] edges) {
         
+        // Step 1: Initialize data structures
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
         for(int i = 0; i < V; i++){
             adj.add(new ArrayList<>());
         }
         
-        // Build graph
+        boolean[] visit = new boolean[V];
+        
+        // Step 2: Build the graph
         for(int[] e : edges){
-            adj.get(e[0]).add(e[1]);
-            adj.get(e[1]).add(e[0]);
+            int u = e[0];
+            int v = e[1];
+            adj.get(u).add(v);
+            adj.get(v).add(u);
         }
         
-        boolean[] vis = new boolean[V];
-        
+        // Step 3: Traverse all components
         for(int i = 0; i < V; i++){
-            if(!vis[i]){
-                if(bfs(adj, i, vis)) return true;
+            if(!visit[i]){
+                if(bfs(i, adj, visit)) return true;
             }
         }
+        
+        // Step 7: No cycle found
         return false;
     }
     
-    public boolean bfs(ArrayList<ArrayList<Integer>> adj, int start, boolean[] vis){
+    public boolean bfs(int start, ArrayList<ArrayList<Integer>> adj, boolean[] visit){
         
+        // Step 4: Initialize queue with (node, parent)
         Queue<int[]> q = new LinkedList<>();
-        q.offer(new int[]{start, -1}); // {node, parent}
-        vis[start] = true;
+        q.offer(new int[]{start, -1});
+        visit[start] = true;
         
+        // Step 5: BFS traversal
         while(!q.isEmpty()){
+            
             int[] curr = q.poll();
             int node = curr[0];
             int parent = curr[1];
             
             for(int nei : adj.get(node)){
-                if(!vis[nei]){
-                    vis[nei] = true;
+                
+                // Step 5a: If not visited
+                if(!visit[nei]){
+                    visit[nei] = true;
                     q.offer(new int[]{nei, node});
-                } 
+                }
+                
+                // Step 5b: If visited and not parent → cycle
                 else if(nei != parent){
-                    return true; // cycle found
+                    return true;
                 }
             }
         }
         
+        // Step 6: No cycle in this component
+        return false;
+    }
+}
         return false;
     }
 }
