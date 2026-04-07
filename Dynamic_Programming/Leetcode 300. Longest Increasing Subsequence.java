@@ -39,8 +39,6 @@ Space Complexity:
 
   =============> Code <==========
 
-  import java.util.Arrays;
-
 class Solution {
     public int lengthOfLIS(int[] nums) {
         int n = nums.length;
