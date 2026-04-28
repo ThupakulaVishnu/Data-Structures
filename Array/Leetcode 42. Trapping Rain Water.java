@@ -50,7 +50,6 @@ Space Complexity Analysis:
 
 
 ============> Code <===============
-  
 class Solution {
     public int trap(int[] height) {
         int l=0,r=height.length-1;
