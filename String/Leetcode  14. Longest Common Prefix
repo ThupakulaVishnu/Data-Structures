@@ -1,0 +1,66 @@
+Step 1: Handle edge case.
+    • If strs is null OR strs.length == 0:
+      ○ Return empty string ""
+Step 2: Use first string as reference.
+    • Take strs[0] as base string
+    • Compare all other strings with it character by character
+Step 3: Traverse characters of first string.
+    • For i = 0 to strs[0].length() − 1:
+      ○ Get current character → ch = strs[0].charAt(i)
+Step 4: Compare with all other strings.
+    • For j = 1 to strs.length − 1:
+      ○ Check two conditions:
+        • If i == strs[j].length() (string ended)
+        • OR strs[j].charAt(i) != ch (mismatch)
+Step 5: Return prefix when mismatch found.
+    • If any condition fails:
+      ○ Return substring from 0 to i → strs[0].substring(0, i)
+Step 6: If loop completes fully.
+    • All characters matched for entire first string
+    • Return strs[0]
+Time Complexity Analysis:
+    • Outer loop runs up to length of first string → O(n)
+    • Inner loop runs for all strings → O(m)
+    • Total comparisons → O(n × m)
+    • Total Time Complexity → O(n × m)
+      (Where n = length of smallest string, m = number of strings)
+Space Complexity Analysis:
+    • No extra data structures used
+    • Only variables used → constant space
+    • Total Space Complexity → O(1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+============> Code <================
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length==0) return "";
+
+        for(int i=0;i<strs[0].length();i++){
+            char ch=strs[0].charAt(i);
+
+            for(int j=1;j<strs.length;j++){
+                if(i==strs[j].length() || strs[j].charAt(i)!=ch){
+                    return strs[0].substring(0,i);
+                }
+            }
+        }
+        return strs[0];
+    }
+}
