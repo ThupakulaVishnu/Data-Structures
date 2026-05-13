@@ -1,0 +1,68 @@
+Step 1: Initialize variables.
+    • Create StringBuilder sb to build repeated string
+    • Initialize count = 0 → tracks how many times string a is appended
+Step 2: Build repeated string until it reaches target size.
+    • While sb.length() < b.length():
+      ○ Append string a to sb → sb.append(a)
+      ○ Increment count → count++
+    • Reason: b can only be a substring if it fits inside repeated a
+Step 3: Check if b exists in current string.
+    • If sb.indexOf(b) != -1:
+      ○ Return count
+Step 4: Append one more copy of a.
+    • sb.append(a) → ensures overlap case is covered
+Step 5: Check again for substring.
+    • If sb.indexOf(b) != -1:
+      ○ Return count + 1
+Step 6: If not found.
+    • Return -1 (b cannot be formed)
+Time Complexity Analysis:
+    • While loop appends string a until length ≥ m → takes O(m / n) appends, each append costs O(n), so total O(m)
+    • First indexOf(b) runs on string of size ≈ m → O(m × m) = O(m²)
+    • One extra append of a → O(n)
+    • Second indexOf(b) runs on string of size ≈ (m + n) → O((m + n) × m)
+    • Total Time Complexity → O(m + m² + n + (m + n) × m) = O((m + n) × m)
+Space Complexity Analysis:
+    • StringBuilder stores repeated string up to size ≈ (m + n) → O(m + n)
+    • No other auxiliary data structures used
+    • Total Space Complexity → O(m + n)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==========> Code <==========
+
+
+class Solution {
+    public int repeatedStringMatch(String a, String b) {
+        StringBuilder sb=new StringBuilder();
+        int cout=0;
+
+        while(sb.length()<b.length()){
+            sb.append(a);
+            cout++;
+        }
+
+        if(sb.indexOf(b)!=-1){
+            return cout;
+        }
+
+        sb.append(a);
+
+        if(sb.indexOf(b)!=-1){
+            return cout+1;
+        }
+        return -1;
+    }
+}
