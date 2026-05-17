@@ -1,4 +1,4 @@
-====== Leetcode 118. Pascal's Triangle =======
+ ====== Leetcode 118. Pascal's Triangle =======
 
 Step 1: Create an empty list that will store all rows of Pascal’s Triangle.
 Step 2: If the number of rows requested is 0, return the empty list.
