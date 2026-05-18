@@ -45,7 +45,7 @@ All partitions:
 •	"a" | "a" | "a"
 •	"a" | "aa"
 •	"aa" | "a"
-•	"aaa"
+•	"aaa" 
 Step 2: Space for each partition
 •	"a" | "a" | "a" → 3 substrings, total characters = 3
 •	"a" | "aa" → 2 substrings, total characters = 3
